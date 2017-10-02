@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+ <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -29,19 +29,18 @@ e.printStackTrace();
 Connection connection = null;
 Statement statement = null;
 ResultSet resultSet = null;
-
 %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset= utf-8">
 <title>Book Inventory</title>
 <h1> BOOK INVENTORY </h1>
-<form>
+ 
 
 <style>
  
  .topnav {
-    background-color: #333;
+    background-color:none;
     overflow: hidden;
 }
 <--Style the links inside the navigation bar -->
@@ -121,7 +120,7 @@ tr:hover {background-color:#C8C8C8};
 </style>
 </head>
 <body>
- 
+ <form action= "login.jsp" get: Post ></form>
 <div class="container">
  <div class="topnav">
   <a href="#home">Home</a>
@@ -173,7 +172,7 @@ tr:hover {background-color:#C8C8C8};
 	  e.printStackTrace();
   }
   %>
-  <!-- <tr>
+  <tr>
     <td><img src="http://t2.gstatic.com/images?q=tbn:ANd9GcTq-fN-ui_ITTjL3ulCkyLstEZCdNvvCHnTRU_J5MWY60WmNIaZ" alt="W3Schools.com" width="104" height="142"><br><input type="checkbox" name="Book" value="Bookoption"></td>
     <td>21345</td>
     <td>The Color Of Water</td>
@@ -227,12 +226,13 @@ tr:hover {background-color:#C8C8C8};
 	<td>10</td>
 	<td>$16.19</td>
  </tr><br><br>
- -->
+ 
 </table>
    <br>
 
-   <input type="submit">
-
+   <input type=Submit"   value="Submit">
+   <input type ="button" name ="Account" value="Logout">
+   <td><input type="reset" name ="reset" value="reset"/></td>
    </form> 
 
 </body>
