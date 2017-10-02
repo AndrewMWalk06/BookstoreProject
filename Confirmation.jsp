@@ -7,8 +7,8 @@
 <title>Confirmation Page</title>
 </head>
 <body>
-<h3 align="center">Thank you for your purchase!</h3>
-<h2 align="center">The expected delivery date is</h2><h2 align="center" id="date"></h2>
+<h2 align="center">Thank you ${username} for your purchase!</h2>
+<h3 align="center">The expected delivery date is</h3><h3 align="center" id="date"></h3>
 
 <script>
 var d = new Date();
@@ -16,11 +16,11 @@ d.setDate(d.getDate() + 4);
 document.getElementById("date").innerHTML = d;
 </script>
 
-<img align="middle" src="https://static.comicvine.com/uploads/original/11/117571/3749777-gym-guy.jpg" height="200" width="200">
+<img style="position:absolute; top:180px; left:200px;" src="https://static.comicvine.com/uploads/original/11/117571/3749777-gym-guy.jpg" height="150" width="200">
 
-<p><a href="booklist.jsp">Return to books</a></p>
+<p align="center"><a href="booklist.jsp">Return to books</a></p>
 <form action="Logout">
-	<input type="submit" value="Logout">
+	<input style="position:absolute; top:335px; left:280px;" type="submit" value="Logout">
 </form>
 </body>
 </html>
