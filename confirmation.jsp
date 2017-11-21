@@ -6,6 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Confirmation Page</title>
 </head>
+<style>
+body{
+background-color: orange;
+}
+
+</style>
 <body>
 <h2 align="center">Thank you ${username} for your purchase!</h2>
 <h3 align="center">The expected delivery date is</h3><h3 align="center" id="date"></h3>
