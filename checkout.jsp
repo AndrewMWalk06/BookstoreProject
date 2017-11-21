@@ -1,9 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
+<%@page import="com.login.*"%>
+<%@page import="java.util.ArrayList"%>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <h1>Checkout</h1><br>
+      </table><h1>Checkout</h1><br>
 	<style>
 	table {
     font-family: arial, sans-serif;
@@ -12,13 +16,17 @@
 	s-resize: auto;
            }
 	   td, th {
-    border: 2px solid #101010;
+    border: 4px solid #101010;
     text-align: left;
-    padding: 3px;
+    padding: 6px;
             }
 tr:hover {background-color:#C8C8C8};
 	</style>
-	<!--<table Height = "100" Width ="10%">
+	
+	<form action="Logout">
+		<input type="submit" value="Logout">
+	</form>
+	<table>
   <tr>
     <th>Select</th>
     <th>ISBN</th>
@@ -29,7 +37,7 @@ tr:hover {background-color:#C8C8C8};
     <th>Price</th>
   </tr>
   <tr>
-    <td><img src="http://t2.gstatic.com/images?q=tbn:ANd9GcTq-fN-ui_ITTjL3ulCkyLstEZCdNvvCHnTRU_J5MWY60WmNIaZ" alt="W3Schools.com" width="104" height="142"><br><input type="checkbox" name="Book" value="Bookoption"></td>
+    <td><img src="http://t2.gstatic.com/images?q=tbn:ANd9GcTq-fN-ui_ITTjL3ulCkyLstEZCdNvvCHnTRU_J5MWY60WmNIaZ" alt="W3Schools.com" width="104" height="142"><br></td>
     <td>21345</td>
     <td>The Color Of Water</td>
 	<td>James Mcbride</td>
@@ -38,7 +46,7 @@ tr:hover {background-color:#C8C8C8};
 	<td>$20.00</td>
   </tr>
   <tr>
-    <td><img src="http://www.valuewalk.com/wp-content/uploads/2014/10/The-Innovators.jpg" alt="W3Schools.com" width="104" height="142"><br><input type="checkbox" name="Book" value="Bookoption"></td>
+    <td><img src="http://www.valuewalk.com/wp-content/uploads/2014/10/The-Innovators.jpg" alt="W3Schools.com" width="104" height="142"><br></td>
     <td>45678</td>
     <td>The Innovators</td>
 	<td>Walter Isaacson</td>
@@ -46,8 +54,40 @@ tr:hover {background-color:#C8C8C8};
 	<td>10</td>
 	<td>$30.00</td>
   </tr>
-  </table> -->
-  <p>The total amount Due:<p>
+  </table>
+   <form action = "confirmation.jsp" method = "post">
+   <%! String [] bookOption;%>
+   <% //Double total =(Double) session.getAttribute("total");
+     bookOption = request.getParameterValues("BookOption");
+     double total = 0;
+     BookDB b = new BookDB();
+	 ArrayList<Book> l = b.getBooks(); 
+	 
+     if (bookOption != null )
+     {
+    	 for (int i = 0; i<bookOption.length; i++){ 
+    		 out.println("<p> Index of Book: "+bookOption[i]+"<p>");
+    		 out.println("<p> Price of Book: "+l.get(Integer.parseInt(bookOption[i])).getPrice()+"<p>");
+    		 out.println("<p> quantity of Book: "+l.get(Integer.parseInt(bookOption[i])).getQuantity()+"<p>");
+    		 
+    		 
+    		 total += l.get(Integer.parseInt(bookOption[i])).getPrice()*l.get(Integer.parseInt(bookOption[i])).getQuantity(); 
+    		 
+    		 //total += 2*4;//price*quantity;
+    	 
+    	 }
+    	 out.println("<p> Total payment: "+total+"<p>");
+		 
+     }
+     else{
+    	 total += 2*4;
+         out.println("<p> BookOption is null<p>");
+    	 
+     }
+   //out.print(request.getAttribute("display Data").toString());
+   %>
+	 <p>The total amount Due: ${total}<p>
+	 
 	<div class="creditCardForm">
     <div class="heading">
 	<title>Checkout page</title>
@@ -116,33 +156,13 @@ tr:hover {background-color:#C8C8C8};
 	<option value="WI">Wisconsin</option>
 	<option value="WY">Wyoming</option>
 </select></br>
-			 </br><label for ="address"> Zip-code</label>
+			 </br><label for ="address">Zip-code</label>
 			 <input type="text" class="form-control" id="Zip-code"></br></br>
 	 </div>
    
 		 <p><u><strong>Credit Card Information</strong></u></p>
     <div class="payment">
-        <form>
-		    
-            <div class="form-group owner">
-                <label for="owner"> Card Owner</label>
-                <input type="text" class="form-control" id="owner">
-            </div>
-			<br>
-            <div class="form-group CVV">
-                <label for="cvv">CVV</label>
-                <input type="text" class="form-control" id="cvv">
-            </div>
-			 
-			 
-			<br>
-            <div class="form-group" id="card-number-field">
-                <label for="cardNumber">Card Number</label>
-             <input class="inputCard" type="text" name="creditCard1" id="creditCard1" maxlength = "12"/>
-          
-             
-<br />
-            <br>
+    
 			<br><label>Payment Options</label>
                 <select>
                     <option value="01">VISA</option>
@@ -151,8 +171,24 @@ tr:hover {background-color:#C8C8C8};
                    
 			   </select>
 			</div>
+			<br>
+            <div class="form-group owner">
+                <label for="owner"> First and Last Name</label>
+                <input type="text" class="form-control" id="owner">
+            </div>
+			<br> 
+			 
+            <div class="form-group" id="card-number-field">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" class="form-control" id="cardNumber">
+            
 			
            <br>
+           <div class="form-group CVV">
+                <label for="cvv">CVV</label>
+                <input type="text" class="form-control" id="cvv">
+            </div>
+			<br>
 		   <div class="form-group" id="expiration-date">
                 <label>Expiration Date</label>
                 <select>
