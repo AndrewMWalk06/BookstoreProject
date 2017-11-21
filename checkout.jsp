@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
-<%@page import="com.login.*"%>
-<%@page import="java.util.ArrayList"%>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
       </table><h1>Checkout</h1><br>
+      </head>
 	<style>
+	body{
+	  background-color: orange;
+	}
 	table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -21,8 +23,9 @@
     padding: 6px;
             }
 tr:hover {background-color:#C8C8C8};
+ 
 	</style>
-	
+ <body>
 	<form action="Logout">
 		<input type="submit" value="Logout">
 	</form>
@@ -55,48 +58,19 @@ tr:hover {background-color:#C8C8C8};
 	<td>$30.00</td>
   </tr>
   </table>
-   <form action = "confirmation.jsp" method = "post">
-   <%! String [] bookOption;%>
-   <% //Double total =(Double) session.getAttribute("total");
-     bookOption = request.getParameterValues("BookOption");
-     double total = 0;
-     BookDB b = new BookDB();
-	 ArrayList<Book> l = b.getBooks(); 
-	 
-     if (bookOption != null )
-     {
-    	 for (int i = 0; i<bookOption.length; i++){ 
-    		 out.println("<p> Index of Book: "+bookOption[i]+"<p>");
-    		 out.println("<p> Price of Book: "+l.get(Integer.parseInt(bookOption[i])).getPrice()+"<p>");
-    		 out.println("<p> quantity of Book: "+l.get(Integer.parseInt(bookOption[i])).getQuantity()+"<p>");
-    		 
-    		 
-    		 total += l.get(Integer.parseInt(bookOption[i])).getPrice()*l.get(Integer.parseInt(bookOption[i])).getQuantity(); 
-    		 
-    		 //total += 2*4;//price*quantity;
-    	 
-    	 }
-    	 out.println("<p> Total payment: "+total+"<p>");
-		 
-     }
-     else{
-    	 total += 2*4;
-         out.println("<p> BookOption is null<p>");
-    	 
-     }
-   //out.print(request.getAttribute("display Data").toString());
-   %>
-	 <p>The total amount Due: ${total}<p>
-	 
+   
 	<div class="creditCardForm">
     <div class="heading">
 	<title>Checkout page</title>
         
     </div>
-	<body>
-         <p><u><strong>Enter Your Shipping Address</strong></u></p>
+   <table>
+        <tr>
+        <th> <p><u><strong>Billing Address</strong></u></p></th>
+         <th><p><u></u><strong>Payment Information</strong></u></p></tr></th>
 		 <div class="form-group id ="delivery">
-			 <label for ="address"> Address 1</label>
+		     
+			<td> <label for ="address" required> Address 1</label>
 			 <input type="text" class="form-control" id="address 1"></br></br>
 			 <label for ="address"> Address 2</label>
 			 <input type="text" class="form-control" id="address 2"></br></br>
@@ -104,6 +78,7 @@ tr:hover {background-color:#C8C8C8};
 			 <input type="text" class="form-control" id="City"></br></br>
 			 <label for ="address"> State</label>
 			 <select name="state">
+			 <option value=" "></option>
 	<option value="AL">Alabama</option>
 	<option value="AK">Alaska</option>
 	<option value="AZ">Arizona</option>
@@ -157,36 +132,39 @@ tr:hover {background-color:#C8C8C8};
 	<option value="WY">Wyoming</option>
 </select></br>
 			 </br><label for ="address">Zip-code</label>
-			 <input type="text" class="form-control" id="Zip-code"></br></br>
-	 </div>
-   
-		 <p><u><strong>Credit Card Information</strong></u></p>
+			 <input type="text" class="form-control" id="Zip-code" maxlength="4"></br></br></td>
+	 
+	 </div>  
+ 
+		 
     <div class="payment">
-    
-			<br><label>Payment Options</label>
+      
+			
+			<td><br><br><label>Payment Options</label>
                 <select>
+                    <option value="00"> </option>
                     <option value="01">VISA</option>
                     <option value="02">American Express</option>
                     <option value="03">Mastercard</option>
                    
 			   </select>
-			</div>
-			<br>
+		 
+			<br><br>
             <div class="form-group owner">
                 <label for="owner"> First and Last Name</label>
-                <input type="text" class="form-control" id="owner">
+                <input type="text" class="form-control" id="owner"><br><br>
             </div>
 			<br> 
 			 
             <div class="form-group" id="card-number-field">
-                <label for="cardNumber">Card Number</label>
+                <label for="cardNumber">Card Number</label> 
                 <input type="text" class="form-control" id="cardNumber">
             
 			
-           <br>
+           <br><br>
            <div class="form-group CVV">
-                <label for="cvv">CVV</label>
-                <input type="text" class="form-control" id="cvv">
+              <label for="cvv">CVV</label>
+                <input type="text" class="form-control" id="cvv" maxlength ="3">
             </div>
 			<br>
 		   <div class="form-group" id="expiration-date">
@@ -213,14 +191,23 @@ tr:hover {background-color:#C8C8C8};
                     <option value="20"> 2020</option>
                     <option value="21"> 2021</option>
                 </select>
-				
+			 </div></div></td>
             </div>
+      
             <br>
+           <td>
+              <form action = "confirmation.jsp">
+   <% Double total =(Double) session.getAttribute("total");%>
+	 <p>The total amount Due: ${total}<p>
             <div class="form-group" id="pay-now">
-                <button type="submit" class="btn btn-default" id="confirm-purchase">Confirm Payment</button>
+                <button type="submit" class="btn btn-default" id="confirm-purchase">Confirm Payment</button><br></div></div>
+          
             </div>
-        </form>
+       
     </div>
-</div>
+  </td>
+    </tr>
+    </table>
+    </form>
 </body>
 </html>
